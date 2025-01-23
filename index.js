@@ -1,6 +1,6 @@
 let notes = [
     {
-        id: new Date(),
+        id: crypto.randomUUID(),
         title: 'Sample Note',
         body: 'Here you would enter more text to describe the notes',
         bgColor: 'orange'
@@ -47,7 +47,7 @@ const cancelEdit = (noteDiv) => {
     const editButton = noteDiv.querySelector('button.edit');
     editButton.innerHTML = 'Edit Note';
     const deleteButton = noteDiv.querySelector('button.delete');
-    // deleteButton.innerHTML = 'Delete Note';
+    deleteButton.innerHTML = 'Delete Note';
     const note = notes.find(note => note.id == noteDiv.id);
     titleP.innerHTML = note.title;
     bodyP.innerHTML = note.body;
@@ -86,15 +86,26 @@ const saveNote = () => {
     const titleInput = document.querySelector('input#title');
     const bodyInput = document.querySelector('input#body');
     const bgColorInput = document.querySelector('select');
-    const id = new Date().getTime();
+
+    if (!titleInput.value.trim() || !bodyInput.value.trim() || bgColorInput.value === 'Select Color') {
+        alert('Please fill in all fields and select a color.');
+        return;
+    }
+
+
+    const id = crypto.randomUUID()
     const note = {
-        id, title: titleInput.value, body: bodyInput.value, bgColor: bgColorInput.value
+        id,
+        title: titleInput.value.trim(),
+        body: bodyInput.value.trim(),
+        bgColor: bgColorInput.value
     }
     const noteDiv = createNoteView(note);
     notesDiv.prepend(noteDiv);
+    notes.push(note);
     titleInput.value = '';
     bodyInput.value = '';
-    bgColorInput.value = '';
+    bgColorInput.value = 'Select Color';
 }
 
 const deleteNote = (noteDiv) => {
@@ -104,6 +115,11 @@ const deleteNote = (noteDiv) => {
 
 document.querySelector('button.add').onclick = () => saveNote();
 const notesDiv = document.querySelector('.notesDiv');
+
+if (!notesDiv) {
+    console.error('Error: Notes container not found.');
+}
+
 notes.forEach(note => {
     const noteDiv = createNoteView(note);
     notesDiv.append(noteDiv);
