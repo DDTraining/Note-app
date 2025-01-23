@@ -27,7 +27,7 @@ To run this project, all you need is a modern web browser like Chrome, Firefox, 
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/DDTraining/quick-notes.git
+   git clone https://github.com/DDTraining/Quick-notes.git
    ```
 
 
