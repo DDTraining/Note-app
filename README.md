@@ -33,7 +33,7 @@ To run this project, all you need is a modern web browser like Chrome, Firefox, 
 
 2. Navigate to the project directory
     ```bash
-    cd quick-notes
+    cd Quick-notes
     ```
 3. Open `index.html` in your browser.
 
